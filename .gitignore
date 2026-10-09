@@ -1,0 +1,55 @@
+# =====================================================================
+# Sistema de Tickets (Spring Boot) - Archivos que NO van al repositorio
+# =====================================================================
+
+# --- Maven -----------------------------------------------------------
+# Todo lo que genera la compilacion se reconstruye con 'mvn package'.
+# Subir el target/ llenaria el repositorio de binarios y de versiones
+# antiguas del mismo codigo.
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# --- Verificacion ----------------------------------------------------
+# Resultados locales de las comprobaciones (salida de curl, .class de
+# pruebas sueltas). Son artefactos de una maquina concreta.
+.verificacion/
+
+# --- IDE -------------------------------------------------------------
+# Ficheros de configuracion local: rutas absolutas, indices, estado del
+# editor. Cada quien tiene las suyas y cambian a cada rato.
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+
+# --- Sistema operativo ----------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Registro y temporales ------------------------------------------
+*.log
+*.tmp
+*.bak
+hs_err_pid*
+replay_pid*
+
+# --- Secretos --------------------------------------------------------
+# Las credenciales reales NUNCA se suben. Se pasan por variables de
+# entorno; el archivo de ejemplo si se sube, para documentar las claves.
+.env
+.env.local
+.env.*.local
+application-local.properties
+application-local.yml
+
+# --- Datos -----------------------------------------------------------
+# Evidencias de los tickets en desarrollo (los archivos que suben los
+# usuarios de prueba). No son parte del codigo.
+uploads/
+storage/
