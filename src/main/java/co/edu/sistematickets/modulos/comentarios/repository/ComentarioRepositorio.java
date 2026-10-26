@@ -14,10 +14,10 @@ import java.util.UUID;
 public interface ComentarioRepositorio {
 
     /**
-     * Lista los comentarios de un ticket, del mas antiguo al mas reciente.
+     * Lista los comentarios de un ticket, del más antiguo al más reciente.
      *
-     * <p>El orden cronologico ascendente es el correcto para una conversacion:
-     * se lee de arriba abajo. Ordenar al reves obligaria al usuario a leer de
+     * <p>El orden cronológico ascendente es el correcto para una conversación:
+     * se lee de arriba abajo. Ordenar al revés obligaría al usuario a leer de
      * abajo arriba.</p>
      *
      * @param ticketId    ticket del que se quieren los comentarios
@@ -30,7 +30,7 @@ public interface ComentarioRepositorio {
      * Busca un comentario por su identificador.
      *
      * @param id identificador del comentario
-     * @return el comentario, o vacio si no existe
+     * @return el comentario, o vacío si no existe
      */
     Optional<ComentarioDto> buscarPorId(UUID id);
 
@@ -45,7 +45,7 @@ public interface ComentarioRepositorio {
     /**
      * Elimina un comentario.
      *
-     * <p>Aqui si se borra fisicamente, al contrario que en tickets y usuarios.
+     * <p>Aquí si se borra fisicamente, al contrario que en tickets y usuarios.
      * El motivo es que un comentario no es una entidad de negocio con
      * implicaciones contables: si alguien se equivoca al publicar, corregirlo
      * sin dejar rastro es razonable. Los adjuntos asociados se borran en

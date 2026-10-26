@@ -22,10 +22,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Endpoints REST de categorias.
+ * Endpoints REST de categorías.
  *
- * <p>La lectura esta abierta a cualquier usuario autenticado porque el
- * formulario de creacion de tickets necesita la lista. La escritura queda para
+ * <p>La lectura está abierta a cualquier usuario autenticado porque el
+ * formulario de creación de tickets necesita la lista. La escritura queda para
  * administradores.</p>
  */
 @RestController
@@ -35,17 +35,17 @@ public class CategoriaControlador {
     private final CategoriaServicio categoriaServicio;
 
     /**
-     * @param categoriaServicio servicio de categorias
+     * @param categoriaServicio servicio de categorías
      */
     public CategoriaControlador(CategoriaServicio categoriaServicio) {
         this.categoriaServicio = categoriaServicio;
     }
 
     /**
-     * Lista categorias.
+     * Lista categorías.
      *
      * @param soloActivas si es {@code true}, solo las habilitadas
-     * @return lista de categorias
+     * @return lista de categorías
      */
     @GetMapping
     public ResponseEntity<RespuestaApi<List<CategoriaDto>>> listar(
@@ -55,10 +55,10 @@ public class CategoriaControlador {
     }
 
     /**
-     * Devuelve una categoria por su identificador.
+     * Devuelve una categoría por su identificador.
      *
-     * @param id identificador de la categoria
-     * @return la categoria
+     * @param id identificador de la categoría
+     * @return la categoría
      */
     @GetMapping("/{id}")
     public ResponseEntity<RespuestaApi<CategoriaDto>> obtener(@PathVariable UUID id) {
@@ -66,10 +66,10 @@ public class CategoriaControlador {
     }
 
     /**
-     * Crea una categoria.
+     * Crea una categoría.
      *
-     * @param datos datos de la categoria
-     * @return la categoria creada
+     * @param datos datos de la categoría
+     * @return la categoría creada
      */
     @PostMapping
     public ResponseEntity<RespuestaApi<CategoriaDto>> crear(@Valid @RequestBody CategoriaDto datos) {
@@ -77,15 +77,15 @@ public class CategoriaControlador {
         CategoriaDto creada = categoriaServicio.crear(datos, rol);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(RespuestaApi.creado(creada, "Categoria creada correctamente."));
+                .body(RespuestaApi.creado(creada, "Categoría creada correctamente."));
     }
 
     /**
-     * Actualiza una categoria.
+     * Actualiza una categoría.
      *
-     * @param id    identificador de la categoria
+     * @param id    identificador de la categoría
      * @param datos datos a persistir
-     * @return la categoria actualizada
+     * @return la categoría actualizada
      */
     @PatchMapping("/{id}")
     public ResponseEntity<RespuestaApi<CategoriaDto>> actualizar(
@@ -95,18 +95,18 @@ public class CategoriaControlador {
         RolUsuario rol = RolUsuario.ADMINISTRADOR;
         return ResponseEntity.ok(RespuestaApi.ok(
                 categoriaServicio.actualizar(id, datos, rol),
-                "Categoria actualizada correctamente."));
+                "Categoría actualizada correctamente."));
     }
 
     /**
-     * Desactiva una categoria.
+     * Desactiva una categoría.
      *
      * <p>Devuelve en {@code meta} cuantos tickets activos quedaron afectados.
-     * Es informacion util: desactivar una categoria con incidencias abiertas
+     * Es información útil: desactivar una categoría con incidencias abiertas
      * deja esos tickets sin SLA aplicable, y el cliente puede avisar al
      * usuario en lugar de hacerlo a ciegas.</p>
      *
-     * @param id identificador de la categoria
+     * @param id identificador de la categoría
      * @return respuesta sin cuerpo de datos, con el aviso en {@code meta}
      */
     @DeleteMapping("/{id}")
@@ -116,7 +116,7 @@ public class CategoriaControlador {
 
         return ResponseEntity.ok(new RespuestaApi<>(
                 true, null,
-                "Categoria desactivada. Tickets activos afectados: " + afectados + ".",
+                "Categoría desactivada. Tickets activos afectados: " + afectados + ".",
                 Map.of("ticketsAfectados", afectados),
                 null, null));
     }

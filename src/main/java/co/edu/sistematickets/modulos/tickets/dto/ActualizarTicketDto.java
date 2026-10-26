@@ -8,34 +8,34 @@ import java.util.UUID;
 /**
  * Datos para modificar los campos descriptivos de un ticket.
  *
- * <p>Todos los campos son opcionales porque es una actualizacion parcial: el
- * cliente envia solo lo que cambia. El servicio rechaza la peticion si no
- * llega ningun campo, para que un PATCH vacio no se registre como si hubiera
+ * <p>Todos los campos son opcionales porque es una actualización parcial: el
+ * cliente envía solo lo que cambia. El servicio rechaza la petición si no
+ * llega ningún campo, para que un PATCH vacío no se registre como si hubiera
  * ocurrido algo.</p>
  *
- * <p>Lo que <strong>no</strong> se puede cambiar por aqui, y por que:</p>
+ * <p>Lo que <strong>no</strong> se puede cambiar por aquí, y por que:</p>
  * <ul>
  *   <li>{@code estado} tiene su propio endpoint, porque cambiar de estado
- *       dispara notificaciones e historial. Mezclarlo con la edicion de texto
- *       haria imposible auditar que fue un cambio de estado y que una
- *       correccion de redaccion.</li>
- *   <li>{@code agenteId} tambien tiene su endpoint, para dejar constancia de
- *       la asignacion en el historial.</li>
- *   <li>{@code codigo}, {@code solicitanteId} y las fechas no se tocan: son
- *       la identidad y la linea de tiempo del ticket.</li>
+ *       dispara notificaciones e historial. Mezclarlo con la edición de texto
+ *       haría imposible auditar que fue un cambio de estado y que una
+ *       corrección de redacción.</li>
+ *   <li>{@code agenteId} también tiene su endpoint, para dejar constancia de
+ *       la asignación en el historial.</li>
+ *   <li>{@code código}, {@code solicitanteId} y las fechas no se tocan: son
+ *       la identidad y la línea de tiempo del ticket.</li>
  * </ul>
  *
- * @param titulo      nuevo titulo, o {@code null} para dejarlo igual
- * @param descripcion nueva descripcion, o {@code null}
- * @param categoriaId nueva categoria; cambiarla recalcula el SLA
+ * @param título      nuevo título, o {@code null} para dejarlo igual
+ * @param descripción nueva descripción, o {@code null}
+ * @param categoriaId nueva categoría; cambiarla recalcula el SLA
  * @param prioridad   nueva prioridad, o {@code null}
  */
 public record ActualizarTicketDto(
 
-        @Size(min = 5, max = 200, message = "El titulo debe tener entre 5 y 200 caracteres.")
+        @Size(min = 5, max = 200, message = "El título debe tener entre 5 y 200 caracteres.")
         String titulo,
 
-        @Size(min = 10, max = 5000, message = "La descripcion debe tener entre 10 y 5000 caracteres.")
+        @Size(min = 10, max = 5000, message = "La descripción debe tener entre 10 y 5000 caracteres.")
         String descripcion,
 
         UUID categoriaId,
@@ -44,7 +44,7 @@ public record ActualizarTicketDto(
 ) {
 
     /**
-     * Indica si la peticion no trae ningun campo que actualizar.
+     * Indica si la petición no trae ningún campo que actualizar.
      *
      * @return {@code true} si todos los campos son {@code null}
      */

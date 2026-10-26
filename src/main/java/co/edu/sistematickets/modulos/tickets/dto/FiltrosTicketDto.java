@@ -10,14 +10,14 @@ import java.util.UUID;
 /**
  * Filtros del listado de tickets.
  *
- * <p>Hereda de {@link PaginacionDto}, asi que ya trae pagina, limite,
- * ordenacion y direccion. Aqui solo se anaden los criterios propios del
+ * <p>Hereda de {@link PaginacionDto}, así que ya trae página, límite,
+ * ordenación y dirección. Aquí solo se añaden los criterios propios del
  * listado de tickets.</p>
  *
  * <p>Todos los campos son opcionales: sin filtros, el servicio aplica
  * aislamiento por rol. Es decir, un solicitante nunca ve los tickets de otro
- * aunque no envie ningun filtro, porque el filtro de propiedad no viene del
- * cliente sino de la sesion.</p>
+ * aunque no envíe ningún filtro, porque el filtro de propiedad no viene del
+ * cliente sino de la sesión.</p>
  *
  * @see PaginacionDto
  */
@@ -29,7 +29,7 @@ public class FiltrosTicketDto extends PaginacionDto {
     /** Filtra por urgencia. */
     private PrioridadTicket prioridad;
 
-    /** Filtra por categoria. */
+    /** Filtra por categoría. */
     private UUID categoriaId;
 
     /** Filtra por agente asignado. */
@@ -38,7 +38,7 @@ public class FiltrosTicketDto extends PaginacionDto {
     /** Filtra por quien reporto el ticket. */
     private UUID solicitanteId;
 
-    /** Busqueda de texto libre sobre titulo y descripcion. */
+    /** Búsqueda de texto libre sobre título y descripción. */
     private String busqueda;
 
     /** Fecha inicial (inclusive) en formato {@code AAAA-MM-DD}. */

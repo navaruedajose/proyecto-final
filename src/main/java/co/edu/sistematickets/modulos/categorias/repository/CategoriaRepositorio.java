@@ -7,75 +7,75 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Acceso a datos de categorias.
+ * Acceso a datos de categorías.
  *
  * <p><strong>Estado actual: solo la interfaz.</strong></p>
  */
 public interface CategoriaRepositorio {
 
     /**
-     * Lista categorias.
+     * Lista categorías.
      *
      * @param soloActivas si es {@code true}, omite las desactivadas
-     * @return lista de categorias
+     * @return lista de categorías
      */
     List<CategoriaDto> listar(boolean soloActivas);
 
     /**
-     * Busca una categoria por su identificador.
+     * Busca una categoría por su identificador.
      *
-     * @param id identificador de la categoria
-     * @return la categoria, o vacio si no existe
+     * @param id identificador de la categoría
+     * @return la categoría, o vacío si no existe
      */
     Optional<CategoriaDto> buscarPorId(UUID id);
 
     /**
-     * Busca una categoria por su nombre.
+     * Busca una categoría por su nombre.
      *
-     * <p>La comparacion debe ser insensible a mayusculas y espacios sobrantes:
-     * «Hardware» y «hardware » son la misma categoria, y aceptar ambas
+     * <p>La comparación debe ser insensible a mayusculas y espacios sobrantes:
+     * «Hardware» y «hardware » son la misma categoría, y aceptar ambas
      * partiria los informes en dos.</p>
      *
      * @param nombre nombre a buscar
-     * @return la categoria, o vacio si no existe
+     * @return la categoría, o vacío si no existe
      */
     Optional<CategoriaDto> buscarPorNombre(String nombre);
 
     /**
-     * Persiste una categoria nueva.
+     * Persiste una categoría nueva.
      *
-     * @param categoria datos de la categoria
-     * @return la categoria creada
+     * @param categoría datos de la categoría
+     * @return la categoría creada
      */
     CategoriaDto guardar(CategoriaDto categoria);
 
     /**
-     * Actualiza una categoria existente.
+     * Actualiza una categoría existente.
      *
-     * @param id        identificador de la categoria
-     * @param categoria datos a persistir
-     * @return la categoria actualizada
+     * @param id        identificador de la categoría
+     * @param categoría datos a persistir
+     * @return la categoría actualizada
      */
     CategoriaDto actualizar(UUID id, CategoriaDto categoria);
 
     /**
-     * Desactiva una categoria (borrado logico).
+     * Desactiva una categoría (borrado lógico).
      *
-     * <p>No se borra la fila: los tickets historicos la referencian y
-     * eliminarla dejaria sus informes sin categoria.</p>
+     * <p>No se borra la fila: los tickets históricos la referencian y
+     * eliminarla dejaría sus informes sin categoría.</p>
      *
-     * @param id identificador de la categoria
+     * @param id identificador de la categoría
      */
     void desactivar(UUID id);
 
     /**
-     * Cuenta cuantos tickets activos usan una categoria.
+     * Cuenta cuantos tickets activos usan una categoría.
      *
      * <p>Se consulta antes de desactivar, para poder avisar de cuantos tickets
      * quedan afectados en lugar de hacerlo en silencio.</p>
      *
-     * @param id identificador de la categoria
-     * @return numero de tickets vigentes en esa categoria
+     * @param id identificador de la categoría
+     * @return número de tickets vigentes en esa categoría
      */
     long contarTicketsActivos(UUID id);
 }

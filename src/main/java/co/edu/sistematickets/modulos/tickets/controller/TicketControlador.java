@@ -26,19 +26,19 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Endpoints REST del modulo de tickets.
+ * Endpoints REST del módulo de tickets.
  *
  * <p>Un controlador no toma decisiones de negocio: valida el formato de la
  * entrada (con {@code @Valid}), llama al servicio y envuelve el resultado en
- * el contrato de respuesta. Si en algun metodo aparece un {@code if} que no
- * sea comprobacion de sintaxis, es que la logica esta en el sitio
+ * el contrato de respuesta. Si en algún método aparece un {@code if} que no
+ * sea comprobación de sintaxis, es que la lógica está en el sitio
  * equivocado.</p>
  *
- * <p><strong>Nota sobre la identidad del usuario.</strong> Los metodos
- * reciben {@code usuarioId} y {@code rol} como parametros. En la version
- * funcional no seran parametros: se obtendran del token JWT con
+ * <p><strong>Nota sobre la identidad del usuario.</strong> Los métodos
+ * reciben {@code usuarioId} y {@code rol} como parámetros. En la versión
+ * funcional no seran parámetros: se obtendran del token JWT con
  * {@code @AuthenticationPrincipal}, de modo que <em>no exista forma</em> de
- * que el cliente declare quien es. Aqui se dejan explicitos para que la firma
+ * que el cliente declare quien es. Aquí se dejan explicitos para que la firma
  * del servicio quede fijada y se vea con claridad que ambos datos son entradas
  * del caso de uso.</p>
  */
@@ -56,18 +56,18 @@ public class TicketControlador {
     }
 
     /**
-     * Lista tickets con filtros y paginacion.
+     * Lista tickets con filtros y paginación.
      *
-     * <p>{@code @ModelAttribute} enlaza los parametros de consulta al DTO de
-     * filtros. Con mas de tres parametros, un objeto es mucho mejor que una
-     * lista de argumentos: anadir un filtro nuevo no cambia la firma.</p>
+     * <p>{@code @ModelAttribute} enlaza los parámetros de consulta al DTO de
+     * filtros. Con más de tres parámetros, un objeto es mucho mejor que una
+     * lista de argumentos: añadir un filtro nuevo no cambia la firma.</p>
      *
-     * @param filtros criterios de busqueda, paginacion y ordenacion
-     * @return pagina de tickets con sus metadatos
+     * @param filtros criterios de búsqueda, paginación y ordenación
+     * @return página de tickets con sus metadatos
      */
     @GetMapping
     public ResponseEntity<RespuestaApi<List<TicketDto>>> listar(@ModelAttribute FiltrosTicketDto filtros) {
-        // Pendiente: sustituir por la identidad extraida del token.
+        // Pendiente: sustituir por la identidad extraída del token.
         UUID usuarioId = null;
         RolUsuario rol = RolUsuario.SOLICITANTE;
 
@@ -78,9 +78,9 @@ public class TicketControlador {
      * Devuelve los indicadores del panel de tickets.
      *
      * <p><strong>Esta ruta se declara antes que {@code /{id}}</strong> y el
-     * orden es obligatorio: si {@code /{id}} fuera primero, Spring intentaria
-     * interpretar la cadena {@code "estadisticas"} como un UUID y fallaria.
-     * Es un error clasico y silencioso, asi que conviene comentarlo.</p>
+     * orden es obligatorio: si {@code /{id}} fuera primero, Spring intentaría
+     * interpretar la cadena {@code "estadisticas"} como un UUID y fallaría.
+     * Es un error clásico y silencioso, así que conviene comentarlo.</p>
      *
      * @return indicadores agregados
      */
@@ -123,9 +123,9 @@ public class TicketControlador {
     /**
      * Crea un ticket.
      *
-     * <p>Devuelve {@code 201 Created} y no {@code 200}. La distincion no es
-     * cosmetica: un cliente o un intermediario puede tratar una creacion
-     * exitosa de forma distinta a una lectura, y el codigo correcto evita
+     * <p>Devuelve {@code 201 Created} y no {@code 200}. La distinción no es
+     * cosmética: un cliente o un intermediario puede tratar una creación
+     * exitosa de forma distinta a una lectura, y el código correcto evita
      * tener que inspeccionar el cuerpo para saber que paso.</p>
      *
      * @param datos datos del ticket
@@ -144,10 +144,10 @@ public class TicketControlador {
     /**
      * Actualiza los campos descriptivos de un ticket.
      *
-     * <p>Se usa {@code PATCH} y no {@code PUT} porque la actualizacion es
-     * parcial: el cliente envia solo lo que cambia. Con {@code PUT} la
-     * semantica exigiria enviar el recurso completo, y un campo omitido
-     * tendria que interpretarse como «borralo», que no es lo que se quiere.</p>
+     * <p>Se usa {@code PATCH} y no {@code PUT} porque la actualización es
+     * parcial: el cliente envía solo lo que cambia. Con {@code PUT} la
+     * semántica exigiria enviar el recurso completo, y un campo omitido
+     * tendría que interpretarse como «borralo», que no es lo que se quiere.</p>
      *
      * @param id      identificador del ticket
      * @param cambios campos a modificar
@@ -169,14 +169,14 @@ public class TicketControlador {
     /**
      * Cambia el estado de un ticket.
      *
-     * <p>Endpoint propio y separado de la edicion normal. La razon es de
-     * auditoria: cambiar de estado genera una entrada en el historial y puede
-     * disparar notificaciones, asi que merece su propia ruta. Si se mezclara
-     * con el PATCH general, el historial no podria distinguir un cambio de
-     * estado de una correccion de redaccion.</p>
+     * <p>Endpoint propio y separado de la edición normal. La razón es de
+     * auditoría: cambiar de estado genera una entrada en el historial y puede
+     * disparar notificaciones, así que merece su propia ruta. Si se mezclara
+     * con el PATCH general, el historial no podría distinguir un cambio de
+     * estado de una corrección de redacción.</p>
      *
      * @param id    identificador del ticket
-     * @param datos estado destino, solucion y observacion
+     * @param datos estado destino, solución y observación
      * @return el ticket en su nuevo estado
      */
     @PatchMapping("/{id}/estado")
@@ -196,7 +196,7 @@ public class TicketControlador {
      * Asigna o reasigna el agente de un ticket.
      *
      * @param id    identificador del ticket
-     * @param datos agente destino y observacion
+     * @param datos agente destino y observación
      * @return el ticket con el nuevo responsable
      */
     @PatchMapping("/{id}/agente")
@@ -213,10 +213,10 @@ public class TicketControlador {
     }
 
     /**
-     * Elimina un ticket (borrado logico).
+     * Elimina un ticket (borrado lógico).
      *
-     * <p>Devuelve {@code 204 No Content}: si la operacion tuvo exito no queda
-     * nada que contar, y un cuerpo vacio lo comunica sin ambiguedad.</p>
+     * <p>Devuelve {@code 204 No Content}: si la operación tuvo éxito no queda
+     * nada que contar, y un cuerpo vacío lo comunica sin ambiguedad.</p>
      *
      * @param id identificador del ticket
      * @return respuesta sin cuerpo

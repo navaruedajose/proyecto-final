@@ -23,35 +23,35 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Reglas de negocio del modulo de tickets.
+ * Reglas de negocio del módulo de tickets.
  *
- * <p>Esta clase es el corazon del sistema. No conoce HTTP ni SQL: si se
- * quisiera usar desde una consola de linea de comandos o desde una tarea
- * programada, funcionaria igual. Esa independencia es lo que la hace testeable
+ * <p>Esta clase es el corazón del sistema. No conoce HTTP ni SQL: si se
+ * quisiera usar desde una consola de línea de comandos o desde una tarea
+ * programada, funcionaría igual. Esa independencia es lo que la hace testeable
  * sin levantar un servidor.</p>
  *
- * <p>Las decisiones de negocio que viven aqui, y que son las que hay que
- * defender en la sustentacion:</p>
+ * <p>Las decisiones de negocio que viven aquí, y que son las que hay que
+ * defender en la sustentación:</p>
  *
  * <ol>
  *   <li><strong>Quien puede ver que.</strong> Un solicitante solo ve sus
  *       tickets; un agente ve los asignados y los sin asignar; un
- *       administrador ve todo. El filtro se impone aqui, nunca se confia en
- *       que el cliente lo envie.</li>
+ *       administrador ve todo. El filtro se impone aquí, nunca se confía en
+ *       que el cliente lo envíe.</li>
  *   <li><strong>Quien puede cambiar el estado.</strong> Solo personal de
- *       soporte. Y ademas, la transicion tiene que ser legal segun la maquina
+ *       soporte. Y además, la transición tiene que ser legal según la máquina
  *       de estados.</li>
- *   <li><strong>La asignacion.</strong> Solo se asigna a alguien con rol de
+ *   <li><strong>La asignación.</strong> Solo se asigna a alguien con rol de
  *       soporte; asignar a un solicitante no tiene sentido.</li>
- *   <li><strong>Resolver exige solucion.</strong> No se puede pasar a
- *       {@code RESUELTO} sin texto de solucion, porque ese texto alimenta los
+ *   <li><strong>Resolver exige solución.</strong> No se puede pasar a
+ *       {@code RESUELTO} sin texto de solución, porque ese texto alimenta los
  *       informes y sin el el cierre no es auditable.</li>
  * </ol>
  *
- * <p>Todos los metodos que consultan por identificador comprueban la
+ * <p>Todos los métodos que consultan por identificador comprueban la
  * existencia <em>antes</em> de comprobar los permisos. El orden importa por
  * seguridad: si se comprobara el permiso primero, un usuario sin acceso
- * recibiria un 403 y sabria que el recurso existe; devolviendo 404 no se
+ * recibiría un 403 y sabria que el recurso existe; devolviendo 404 no se
  * filtra ni eso.</p>
  */
 public class TicketServicio {
@@ -61,7 +61,7 @@ public class TicketServicio {
 
     /**
      * @param ticketRepositorio acceso a datos de tickets
-     * @param ticketMapper      utilidades de mapeo y calculo de SLA
+     * @param ticketMapper      utilidades de mapeo y cálculo de SLA
      */
     public TicketServicio(TicketRepositorio ticketRepositorio, TicketMapper ticketMapper) {
         this.ticketRepositorio = ticketRepositorio;
@@ -76,15 +76,15 @@ public class TicketServicio {
      * Lista tickets visibles para el usuario que consulta.
      *
      * <p>El aislamiento por rol se aplica sobreescribiendo los filtros que
-     * llegan del cliente, no anadiendo condiciones al final: para un
+     * llegan del cliente, no añadiendo condiciones al final: para un
      * solicitante se fuerza {@code solicitanteId} a su propio identificador,
-     * de modo que aunque intente consultar los de otro con un parametro, el
+     * de modo que aunque intente consultar los de otro con un parámetro, el
      * servicio lo ignora.</p>
      *
-     * @param filtros      criterios de busqueda enviados por el cliente
+     * @param filtros      criterios de búsqueda enviados por el cliente
      * @param usuarioId    identificador del usuario autenticado
      * @param rol          rol del usuario autenticado
-     * @return pagina de tickets y metadatos de paginacion
+     * @return página de tickets y metadatos de paginación
      */
     public RespuestaApi<List<TicketDto>> listar(FiltrosTicketDto filtros, UUID usuarioId, RolUsuario rol) {
         filtros.normalizar();
@@ -119,9 +119,9 @@ public class TicketServicio {
     /**
      * Devuelve el historial de cambios de un ticket.
      *
-     * <p>Reutiliza {@link #obtener} para no duplicar la comprobacion de
+     * <p>Reutiliza {@link #obtener} para no duplicar la comprobación de
      * existencia y permisos. Que el historial sea visible solo para quien ve el
-     * ticket es una decision: contiene notas internas entre agentes.</p>
+     * ticket es una decisión: contiene notas internas entre agentes.</p>
      *
      * @param id        identificador del ticket
      * @param usuarioId usuario autenticado
@@ -136,9 +136,9 @@ public class TicketServicio {
      * Calcula los indicadores del panel de tickets.
      *
      * <p>Se apoya en las vistas {@code vista_resumen_tickets} y
-     * {@code vista_desempeno_agentes} de PostgreSQL. Delegar la agregacion en
-     * la base es lo correcto: sumar en memoria obligaria a traer todas las
-     * filas a la aplicacion, que es exactamente lo que hay que evitar cuando
+     * {@code vista_desempeno_agentes} de PostgreSQL. Delegar la agregación en
+     * la base es lo correcto: sumar en memoria obligaría a traer todas las
+     * filas a la aplicación, que es exactamente lo que hay que evitar cuando
      * la tabla crece.</p>
      *
      * @param usuarioId usuario autenticado
@@ -163,8 +163,8 @@ public class TicketServicio {
      *       cliente.</li>
      *   <li>Si no llega prioridad, se aplica {@code MEDIA}.</li>
      *   <li>Un solicitante no puede crear un ticket a nombre de otra persona,
-     *       aunque envie {@code solicitanteId}. Se ignora el campo y se usa su
-     *       identidad de sesion.</li>
+     *       aunque envíe {@code solicitanteId}. Se ignora el campo y se usa su
+     *       identidad de sesión.</li>
      *   <li>Solo el personal de soporte puede autoasignarse el ticket al
      *       crearlo.</li>
      * </ul>
@@ -180,7 +180,7 @@ public class TicketServicio {
         PrioridadTicket prioridad = (datos.prioridad() != null) ? datos.prioridad() : PrioridadTicket.MEDIA;
 
         throw new UnsupportedOperationException(
-                "La creacion se completara al conectar la persistencia. "
+                "La creación se completara al conectar la persistencia. "
                         + "Solicitante resuelto: " + solicitanteFinal
                         + ", agente: " + agenteFinal
                         + ", prioridad: " + prioridad);
@@ -190,8 +190,8 @@ public class TicketServicio {
      * Actualiza los campos descriptivos de un ticket.
      *
      * <p>Solo el solicitante dueño o el personal de soporte pueden editar. Se
-     * rechaza la peticion si no trae ningun campo, para que un PATCH vacio no
-     * se registre como una modificacion.</p>
+     * rechaza la petición si no trae ningún campo, para que un PATCH vacío no
+     * se registre como una modificación.</p>
      *
      * @param id        identificador del ticket
      * @param cambios   campos a modificar
@@ -214,13 +214,13 @@ public class TicketServicio {
         }
 
         throw new UnsupportedOperationException(
-                "La actualizacion se completara al conectar la persistencia.");
+                "La actualización se completara al conectar la persistencia.");
     }
 
     /**
-     * Cambia el estado de un ticket validando la maquina de estados.
+     * Cambia el estado de un ticket validando la máquina de estados.
      *
-     * <p>Es el metodo mas importante del modulo, y el que hay que saber
+     * <p>Es el método más importante del módulo, y el que hay que saber
      * explicar. El orden de las comprobaciones no es casual:</p>
      *
      * <ol>
@@ -228,25 +228,25 @@ public class TicketServicio {
      *   <li>Solo el personal de soporte cambia estados: un solicitante no
      *       puede ni cerrar su propio ticket, porque el cierre implica una
      *       contabilidad de SLA que no le corresponde decidir.</li>
-     *   <li>La transicion es legal segun el mapa de {@link EstadoTicket}. Si
-     *       no lo es, se responde <strong>409</strong>, no 400: la peticion
-     *       esta bien formada, lo que no encaja es el estado actual.</li>
-     *   <li>Resolver exige texto de solucion. Sin el, el cierre no seria
-     *       auditable ni serviria para los informes.</li>
+     *   <li>La transición es legal según el mapa de {@link EstadoTicket}. Si
+     *       no lo es, se responde <strong>409</strong>, no 400: la petición
+     *       está bien formada, lo que no encaja es el estado actual.</li>
+     *   <li>Resolver exige texto de solución. Sin el, el cierre no sería
+     *       auditable ni serviría para los informes.</li>
      * </ol>
      *
-     * <p>El cambio a {@code RESUELTO} es ademas el que dispara la notificacion
-     * por correo y SMS. Esa llamada no vive aqui: el servicio de tickets
-     * publica el hecho y el modulo de notificaciones reacciona. Si el envio
-     * falla, el cambio de estado ya esta confirmado y la notificacion queda en
+     * <p>El cambio a {@code RESUELTO} es además el que dispara la notificación
+     * por correo y SMS. Esa llamada no vive aquí: el servicio de tickets
+     * publica el hecho y el módulo de notificaciones reacciona. Si el envío
+     * falla, el cambio de estado ya está confirmado y la notificación queda en
      * la cola para reintento; no se pierde ni bloquea al usuario.</p>
      *
      * @param id      identificador del ticket
-     * @param datos   estado destino, solucion y observacion
+     * @param datos   estado destino, solución y observación
      * @param usuarioId usuario autenticado
      * @param rol     rol del usuario autenticado
      * @return el ticket ya en su nuevo estado
-     * @throws ConflictoEstadoExcepcion si la transicion no es legal
+     * @throws ConflictoEstadoExcepcion si la transición no es legal
      */
     public TicketDto cambiarEstado(UUID id, CambiarEstadoDto datos, UUID usuarioId, RolUsuario rol) {
         TicketDto actual = obtener(id, usuarioId, rol);
@@ -267,19 +267,19 @@ public class TicketServicio {
 
         throw new UnsupportedOperationException(
                 "El cambio de estado se completara al conectar la persistencia. "
-                        + "Transicion validada: " + actual.estado() + " -> " + estadoNuevo);
+                        + "Transición validada: " + actual.estado() + " -> " + estadoNuevo);
     }
 
     /**
      * Asigna o reasigna el agente de un ticket.
      *
-     * <p>{@code agenteId} nulo significa desasignar, y es una operacion
+     * <p>{@code agenteId} nulo significa desasignar, y es una operación
      * valida: devuelve el ticket a la cola comun, lo que hace falta cuando un
      * agente se ausenta. En ese caso no se comprueba el rol del destinatario,
      * porque no hay destinatario.</p>
      *
      * @param id        identificador del ticket
-     * @param datos     agente destino y observacion
+     * @param datos     agente destino y observación
      * @param usuarioId usuario autenticado
      * @param rol       rol del usuario autenticado
      * @return el ticket con el agente actualizado
@@ -295,15 +295,15 @@ public class TicketServicio {
                     "No se puede reasignar un ticket en estado %s.".formatted(actual.estado()));
         }
         if (datos.agenteId() != null) {
-            // Aqui se comprobara contra el repositorio de usuarios que el
+            // Aquí se comprobara contra el repositorio de usuarios que el
             // destinatario exista y tenga rol de soporte. Se deja escrito para
             // que la regla no se pierda al implementar la persistencia.
             throw new UnsupportedOperationException(
-                    "La comprobacion del destinatario se implementara con el repositorio de usuarios.");
+                    "La comprobación del destinatario se implementara con el repositorio de usuarios.");
         }
 
         throw new UnsupportedOperationException(
-                "La asignacion se completara al conectar la persistencia.");
+                "La asignación se completara al conectar la persistencia.");
     }
 
     /**
@@ -327,15 +327,15 @@ public class TicketServicio {
     }
 
     // =================================================================
-    // Reglas de acceso (privadas: son detalle de implementacion)
+    // Reglas de acceso (privadas: son detalle de implementación)
     // =================================================================
 
     /**
-     * Impone el filtro de visibilidad segun el rol.
+     * Impone el filtro de visibilidad según el rol.
      *
-     * <p>Sobreescribe lo que venga del cliente en lugar de anadir condiciones:
-     * si un solicitante envia {@code solicitanteId} de otra persona, se
-     * ignora y se usa el suyo. Asi el parametro no se convierte en una via
+     * <p>Sobreescribe lo que venga del cliente en lugar de añadir condiciones:
+     * si un solicitante envía {@code solicitanteId} de otra persona, se
+     * ignora y se usa el suyo. Así el parámetro no se convierte en una vía
      * para leer datos ajenos.</p>
      *
      * @param filtros   filtros a ajustar (se modifican en el sitio)
@@ -363,7 +363,7 @@ public class TicketServicio {
     /**
      * Determina si un usuario puede ver un ticket concreto.
      *
-     * @param ticket    ticket en cuestion
+     * @param ticket    ticket en cuestión
      * @param usuarioId usuario autenticado
      * @param rol       rol del usuario autenticado
      * @return {@code true} si puede verlo
@@ -385,7 +385,7 @@ public class TicketServicio {
      * Un solicitante puede corregir su propio ticket, pero solo mientras no
      * este resuelto (eso se comprueba en {@link #actualizar}).</p>
      *
-     * @param ticket    ticket en cuestion
+     * @param ticket    ticket en cuestión
      * @param usuarioId usuario autenticado
      * @param rol       rol del usuario autenticado
      * @return {@code true} si puede editarlo
@@ -399,7 +399,7 @@ public class TicketServicio {
     }
 
     /**
-     * Resuelve quien sera el solicitante efectivo del ticket.
+     * Resuelve quien será el solicitante efectivo del ticket.
      *
      * @param solicitanteSolicitado valor enviado por el cliente; puede ser nulo
      * @param usuarioId             usuario autenticado
@@ -438,15 +438,15 @@ public class TicketServicio {
     }
 
     /**
-     * Exige texto de solucion al pasar a resuelto.
+     * Exige texto de solución al pasar a resuelto.
      *
-     * @param solucion texto enviado por el cliente
-     * @throws SolicitudInvalidaExcepcion si viene vacio
+     * @param solución texto enviado por el cliente
+     * @throws SolicitudInvalidaExcepcion si viene vacío
      */
     private void exigirSolucion(String solucion) {
         if (solucion == null || solucion.isBlank()) {
             throw new SolicitudInvalidaExcepcion(
-                    "Para marcar un ticket como RESUELTO debe indicar la solucion aplicada.");
+                    "Para marcar un ticket como RESUELTO debe indicar la solución aplicada.");
         }
     }
 }

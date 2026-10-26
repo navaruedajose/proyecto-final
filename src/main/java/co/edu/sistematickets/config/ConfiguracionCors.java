@@ -5,23 +5,23 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Configuracion de CORS.
+ * Configuración de CORS.
  *
- * <p>CORS es la regla que aplica el navegador cuando la pagina y la API estan
- * en origenes distintos. Sin esta configuracion, el frontend recibiria las
- * respuestas pero el navegador se las ocultaria al codigo, con un error que
- * confunde mucho porque la peticion <em>si</em> llego al servidor.</p>
+ * <p>CORS es la regla que aplica el navegador cuando la página y la API están
+ * en origenes distintos. Sin esta configuración, el frontend recibiría las
+ * respuestas pero el navegador se las ocultaria al código, con un error que
+ * confunde mucho porque la petición <em>si</em> llego al servidor.</p>
  *
  * <p><strong>Los origenes permitidos no son {@code "*"}.</strong> Es una
- * decision deliberada: con comodin, cualquier sitio web podria llamar a esta
+ * decisión deliberada: con comodin, cualquier sitio web podría llamar a esta
  * API desde el navegador del usuario. Se enumeran los origenes conocidos
- * (desarrollo local y la URL de produccion).</p>
+ * (desarrollo local y la URL de producción).</p>
  *
  * <p><strong>Nota sobre {@code allowCredentials}.</strong> Se deja en
- * {@code false} porque la autenticacion viaja en la cabecera
+ * {@code false} porque la autenticación viaja en la cabecera
  * {@code Authorization}, no en cookies. Con comodin en los origenes y
- * credenciales activadas a la vez, el navegador rechazaria la respuesta por
- * insegura; como aqui no hacen falta credenciales de navegador, el problema ni
+ * credenciales activadas a la vez, el navegador rechazaría la respuesta por
+ * insegura; como aquí no hacen falta credenciales de navegador, el problema ni
  * se plantea.</p>
  */
 @Configuration
@@ -30,7 +30,7 @@ public class ConfiguracionCors implements WebMvcConfigurer {
     /**
      * Registra las reglas de CORS de la API.
      *
-     * @param registro registro de configuracion de CORS
+     * @param registro registro de configuración de CORS
      */
     @Override
     public void addCorsMappings(CorsRegistry registro) {

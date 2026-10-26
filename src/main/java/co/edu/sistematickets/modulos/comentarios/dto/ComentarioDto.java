@@ -11,14 +11,14 @@ import java.util.UUID;
  *
  * <p>Se usa el mismo DTO para crear y para leer, porque los campos coinciden.
  * Si en el futuro divergieran (por ejemplo, si al crear se admitiera un
- * identificador de comentario padre), lo correcto seria separarlos en lugar de
+ * identificador de comentario padre), lo correcto sería separarlos en lugar de
  * dejar campos opcionales que solo aplican en un sentido.</p>
  *
  * <p><strong>Sobre {@code esInterno}.</strong> Marca la nota como privada: la
- * ven los agentes, no el solicitante. Es la razon de que el servicio tenga que
- * filtrar los comentarios segun quien pregunta, y no limitarse a devolver
- * todos los del ticket. Un filtro que se olvide aqui no rompe nada visible,
- * pero filtra conversaciones internas al cliente, asi que conviene probarlo
+ * ven los agentes, no el solicitante. Es la razón de que el servicio tenga que
+ * filtrar los comentarios según quien pregunta, y no limitarse a devolver
+ * todos los del ticket. Un filtro que se olvide aquí no rompe nada visible,
+ * pero filtra conversaciones internas al cliente, así que conviene probarlo
  * explicitamente.</p>
  *
  * @param id          identificador del comentario
@@ -27,7 +27,7 @@ import java.util.UUID;
  * @param autorNombre nombre del autor, ya resuelto para la vista
  * @param contenido   texto del comentario
  * @param esInterno   {@code true} si es una nota privada entre agentes
- * @param creadoEn    fecha de publicacion
+ * @param creadoEn    fecha de publicación
  */
 public record ComentarioDto(
 

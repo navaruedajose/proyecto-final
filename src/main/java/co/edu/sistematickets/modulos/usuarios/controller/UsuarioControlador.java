@@ -25,7 +25,7 @@ import java.util.UUID;
  *
  * <p>Casi todo este controlador requiere rol de administrador. Las excepciones
  * son {@code /agentes} (lo consultan los agentes al repartirse trabajo) y el
- * cambio de la propia contrasena.</p>
+ * cambio de la propia contraseña.</p>
  */
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -41,14 +41,14 @@ public class UsuarioControlador {
     }
 
     /**
-     * Lista usuarios con filtros y paginacion.
+     * Lista usuarios con filtros y paginación.
      *
      * @param rol      filtro por rol; puede ser {@code null}
      * @param activo   filtro por estado; puede ser {@code null}
-     * @param busqueda texto libre; puede ser {@code null}
-     * @param pagina   numero de pagina
-     * @param limite   tamano de pagina
-     * @return pagina de usuarios
+     * @param búsqueda texto libre; puede ser {@code null}
+     * @param página   número de página
+     * @param límite   tamaño de página
+     * @return página de usuarios
      */
     @GetMapping
     public ResponseEntity<RespuestaApi<List<UsuarioDto>>> listar(
@@ -65,8 +65,8 @@ public class UsuarioControlador {
      * Devuelve los agentes ordenados por carga de trabajo.
      *
      * <p><strong>Declarada antes de {@code /{id}}</strong>: si no, Spring
-     * intentaria leer «agentes» como un UUID y la peticion fallaria con un
-     * error de conversion en lugar de llegar a este metodo.</p>
+     * intentaría leer «agentes» como un UUID y la petición fallaría con un
+     * error de conversión en lugar de llegar a este método.</p>
      *
      * @return agentes de menor a mayor carga
      */
@@ -108,13 +108,13 @@ public class UsuarioControlador {
     }
 
     /**
-     * Cambia la contrasena del usuario autenticado.
+     * Cambia la contraseña del usuario autenticado.
      *
      * <p>Ruta {@code /contrasena} sin identificador: solo se puede cambiar la
      * propia. Que el endpoint no acepte un identificador hace imposible
      * siquiera intentar cambiar la de otro.</p>
      *
-     * @param datos contrasena actual y nueva
+     * @param datos contraseña actual y nueva
      * @return respuesta sin cuerpo
      */
     @PatchMapping("/contrasena")

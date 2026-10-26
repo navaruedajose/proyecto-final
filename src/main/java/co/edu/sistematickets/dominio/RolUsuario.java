@@ -14,14 +14,14 @@ public enum RolUsuario {
     /** Atiende tickets: cambia estados, comenta y resuelve. Ve lo asignado. */
     AGENTE,
 
-    /** Administra el sistema: usuarios, categorias, SLA y reportes. */
+    /** Administra el sistema: usuarios, categorías, SLA y reportes. */
     ADMINISTRADOR;
 
     /**
      * Indica si el rol pertenece al personal de soporte.
      *
      * <p>Se usa para decidir quien puede cambiar el estado de un ticket o
-     * asignarlo: un solicitante nunca deberia poder hacerlo.</p>
+     * asignarlo: un solicitante nunca debería poder hacerlo.</p>
      *
      * @return {@code true} para {@code AGENTE} y {@code ADMINISTRADOR}
      */

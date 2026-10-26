@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 /**
- * Endpoints REST de autenticacion.
+ * Endpoints REST de autenticación.
  *
- * <p>Es el unico modulo que mezcla rutas publicas y protegidas:</p>
+ * <p>Es el único módulo que mezcla rutas publicas y protegidas:</p>
  *
  * <ul>
- *   <li>Públicas (sin sesion): {@code /registro} e {@code /iniciar-sesion}.
+ *   <li>Públicas (sin sesión): {@code /registro} e {@code /iniciar-sesión}.
  *       Tienen que serlo, obviamente: son la puerta de entrada.</li>
- *   <li>Protegidas: {@code /perfil}, {@code /cerrar-sesion} y el resto.</li>
+ *   <li>Protegidas: {@code /perfil}, {@code /cerrar-sesión} y el resto.</li>
  * </ul>
  *
  * <p>Las rutas publicas son las que hay que proteger con mayor cuidado fuera
- * del codigo: son las que reciben trafico de cualquiera, y por eso el proyecto
- * les aplica un limitador de peticiones mucho mas estricto que al resto (10
+ * del código: son las que reciben tráfico de cualquiera, y por eso el proyecto
+ * les aplica un limitador de peticiones mucho más estricto que al resto (10
  * intentos frente a 1.000 generales). El limitador no se ve en el controlador;
  * es una capa por delante que conviene mencionar al explicar la seguridad.</p>
  */
@@ -42,17 +42,17 @@ public class AutenticacionControlador {
     private final AutenticacionServicio autenticacionServicio;
 
     /**
-     * @param autenticacionServicio servicio de autenticacion
+     * @param autenticacionServicio servicio de autenticación
      */
     public AutenticacionControlador(AutenticacionServicio autenticacionServicio) {
         this.autenticacionServicio = autenticacionServicio;
     }
 
     /**
-     * Registra una cuenta publica.
+     * Registra una cuenta pública.
      *
      * <p>El rol se fija internamente en {@code SOLICITANTE}; no viene del
-     * cuerpo de la peticion. Devuelve {@code 201}.</p>
+     * cuerpo de la petición. Devuelve {@code 201}.</p>
      *
      * @param datos datos del registro
      * @return perfil del usuario creado
@@ -65,23 +65,23 @@ public class AutenticacionControlador {
     }
 
     /**
-     * Inicia sesion y devuelve los dos tokens.
+     * Inicia sesión y devuelve los dos tokens.
      *
-     * @param credenciales correo y contrasena
-     * @return sesion con token de acceso, token de refresco y perfil
+     * @param credenciales correo y contraseña
+     * @return sesión con token de acceso, token de refresco y perfil
      */
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<RespuestaApi<SesionDto>> iniciarSesion(@Valid @RequestBody InicioSesionDto credenciales) {
         return ResponseEntity.ok(RespuestaApi.ok(
                 autenticacionServicio.iniciarSesion(credenciales),
-                "Sesion iniciada correctamente."));
+                "Sesión iniciada correctamente."));
     }
 
     /**
      * Crea una cuenta interna (agente o administrador).
      *
      * <p>Ruta separada de {@code /registro} porque tiene un requisito distinto:
-     * aqui si se decide el rol, y por eso solo un administrador puede
+     * aquí si se decide el rol, y por eso solo un administrador puede
      * llamarla. Mantenerlas separadas evita que un cambio de permisos en una
      * afecte sin querer a la otra.</p>
      *
@@ -104,7 +104,7 @@ public class AutenticacionControlador {
      * Renueva el token de acceso.
      *
      * @param datos token de refresco vigente
-     * @return sesion nueva
+     * @return sesión nueva
      */
     @PostMapping("/refrescar")
     public ResponseEntity<RespuestaApi<SesionDto>> refrescar(@Valid @RequestBody TokenRefrescoDto datos) {
@@ -114,9 +114,9 @@ public class AutenticacionControlador {
     }
 
     /**
-     * Cierra la sesion actual.
+     * Cierra la sesión actual.
      *
-     * @param datos token de refresco de la sesion
+     * @param datos token de refresco de la sesión
      * @return respuesta sin cuerpo
      */
     @PostMapping("/cerrar-sesion")
@@ -142,7 +142,7 @@ public class AutenticacionControlador {
      *
      * <p>El cliente lo usa al arrancar: con el token guardado pide el perfil
      * para saber quien es y que puede ver, sin tener que volver a pedir la
-     * contrasena.</p>
+     * contraseña.</p>
      *
      * @return perfil sin datos sensibles
      */

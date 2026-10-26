@@ -17,9 +17,9 @@ import java.util.UUID;
  * Endpoints REST de notificaciones.
  *
  * <p>Solo para consulta y mantenimiento. No existe un endpoint para «enviar
- * una notificacion»: los envios son consecuencia de cambios de estado, los
- * dispara el sistema, no el usuario. Exponer un endpoint de envio manual
- * abriria la puerta a usar el sistema como plataforma de mensajeria.</p>
+ * una notificación»: los envios son consecuencia de cambios de estado, los
+ * dispara el sistema, no el usuario. Exponer un endpoint de envío manual
+ * abriría la puerta a usar el sistema como plataforma de mensajería.</p>
  */
 @RestController
 @RequestMapping("/api/v1/notificaciones")
@@ -48,7 +48,7 @@ public class NotificacionControlador {
     /**
      * Devuelve un resumen de la cola de notificaciones.
      *
-     * @return conteos por estado de envio
+     * @return conteos por estado de envío
      */
     @GetMapping("/resumen")
     public ResponseEntity<RespuestaApi<Object>> resumen() {
@@ -58,10 +58,10 @@ public class NotificacionControlador {
     /**
      * Reintenta las notificaciones fallidas.
      *
-     * <p>Devuelve el numero de reintentos lanzados. Es la operacion que se usa
-     * despues de un corte del proveedor de correo.</p>
+     * <p>Devuelve el número de reintentos lanzados. Es la operación que se usa
+     * después de un corte del proveedor de correo.</p>
      *
-     * @return numero de notificaciones reintentadas
+     * @return número de notificaciones reintentadas
      */
     @PostMapping("/reintentar")
     public ResponseEntity<RespuestaApi<Integer>> reintentar() {

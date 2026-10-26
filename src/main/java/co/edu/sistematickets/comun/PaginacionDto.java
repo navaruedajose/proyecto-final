@@ -1,22 +1,22 @@
 package co.edu.sistematickets.comun;
 
 /**
- * Parametros de paginacion y ordenacion que aceptan los listados.
+ * Parámetros de paginación y ordenación que aceptan los listados.
  *
  * <p>Se modela como una clase base de la que heredan los filtros concretos,
  * para no repetir los mismos cuatro campos en ocho DTOs distintos (DRY). Cada
- * filtro anade despues sus propios criterios.</p>
+ * filtro añade después sus propios criterios.</p>
  *
- * <p>Los valores por defecto se eligen para que una peticion sin parametros
- * funcione: pagina 1, 20 elementos, orden descendente por fecha de creacion.
- * Un listado nunca deberia devolver la tabla entera por olvido del cliente.</p>
+ * <p>Los valores por defecto se eligen para que una petición sin parámetros
+ * funcione: página 1, 20 elementos, orden descendente por fecha de creación.
+ * Un listado nunca debería devolver la tabla entera por olvido del cliente.</p>
  */
 public class PaginacionDto {
 
-    /** Tamano maximo de pagina aceptado. Evita que un cliente pida 100.000 filas. */
+    /** Tamaño máximo de página aceptado. Evita que un cliente pida 100.000 filas. */
     public static final int LIMITE_MAXIMO = 100;
 
-    /** Tamano de pagina por defecto. */
+    /** Tamaño de página por defecto. */
     public static final int LIMITE_POR_DEFECTO = 20;
 
     private Integer pagina = 1;
@@ -25,11 +25,11 @@ public class PaginacionDto {
     private String direccion = "DESC";
 
     /**
-     * Normaliza los valores: corrige nulos, negativos y limites excesivos.
+     * Normaliza los valores: corrige nulos, negativos y límites excesivos.
      *
-     * <p>Se llama desde el servicio antes de consultar. Centralizar aqui la
-     * correccion evita repetir la misma comprobacion en cada modulo y, sobre
-     * todo, evita que un {@code limite} negativo llegue al repositorio.</p>
+     * <p>Se llama desde el servicio antes de consultar. Centralizar aquí la
+     * corrección evita repetir la misma comprobación en cada módulo y, sobre
+     * todo, evita que un {@code límite} negativo llegue al repositorio.</p>
      */
     public void normalizar() {
         if (pagina == null || pagina < 1) {
@@ -51,7 +51,7 @@ public class PaginacionDto {
     /**
      * Desplazamiento a aplicar en la consulta.
      *
-     * @return numero de filas a saltar
+     * @return número de filas a saltar
      */
     public int desplazamiento() {
         normalizar();

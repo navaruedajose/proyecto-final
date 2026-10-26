@@ -53,9 +53,9 @@ public class AdjuntoControlador {
      * Sube una o varias evidencias.
      *
      * <p>{@code @RequestParam("archivos")} acepta varios archivos con el mismo
-     * nombre de campo, que es lo que permite subir una seleccion multiple en
-     * una sola peticion. El nombre del parametro debe coincidir con el que usa
-     * el cliente; el frontend envia {@code archivos}.</p>
+     * nombre de campo, que es lo que permite subir una selección multiple en
+     * una sola petición. El nombre del parámetro debe coincidir con el que usa
+     * el cliente; el frontend envía {@code archivos}.</p>
      *
      * @param ticketId ticket destino
      * @param archivos archivos recibidos
@@ -78,12 +78,12 @@ public class AdjuntoControlador {
      * <p>Devuelve un recurso binario, no el contrato JSON habitual: el
      * contenido de la respuesta <em>es</em> el archivo.</p>
      *
-     * <p>Dos cabeceras importan aqui:</p>
+     * <p>Dos cabeceras importan aquí:</p>
      * <ul>
      *   <li>{@code Content-Disposition: attachment} fuerza la descarga.
-     *       Servir el archivo con {@code inline} permitiria que el navegador lo
+     *       Servir el archivo con {@code inline} permitiría que el navegador lo
      *       interpretara; con {@code attachment} se limita a guardarlo, que es
-     *       la proteccion que sustituye al antivirus ausente.</li>
+     *       la protección que sustituye al antivirus ausente.</li>
      *   <li>{@code Content-Type: application/octet-stream} declara el contenido
      *       como binario opaco, para que el navegador no intente adivinar el
      *       tipo y abrirlo.</li>

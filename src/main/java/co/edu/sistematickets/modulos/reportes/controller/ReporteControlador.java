@@ -20,13 +20,13 @@ import java.time.LocalDate;
 /**
  * Endpoints REST de reportes.
  *
- * <p>Un solo endpoint para los dos formatos, elegidos por el parametro
+ * <p>Un solo endpoint para los dos formatos, elegidos por el parámetro
  * {@code formato}. Se separan en rutas distintas solo si las opciones de cada
- * uno divergieran de verdad; hoy comparten exactamente los mismos filtros, asi
- * que duplicar la ruta obligaria a mantener dos firmas identicas.</p>
+ * uno divergieran de verdad; hoy comparten exactamente los mismos filtros, así
+ * que duplicar la ruta obligaría a mantener dos firmas identicas.</p>
  *
- * <p><strong>Ruta exacta:</strong> {@code /reportes/tickets?dias=30&formato=pdf}.
- * Conviene tenerla presente porque es facil equivocarse y escribir
+ * <p><strong>Ruta exacta:</strong> {@code /reportes/tickets?días=30&formato=pdf}.
+ * Conviene tenerla presente porque es fácil equivocarse y escribir
  * {@code /reportes/pdf}.</p>
  */
 @RestController
@@ -69,15 +69,15 @@ public class ReporteControlador {
      * <ul>
      *   <li>{@code Content-Type} — el tipo real del archivo. Debe ser el
      *       correcto ({@code application/pdf} o el tipo de Excel), no
-     *       {@code application/octet-stream}: asi el sistema operativo abre el
-     *       archivo con la aplicacion adecuada al descargarlo.</li>
+     *       {@code application/octet-stream}: así el sistema operativo abre el
+     *       archivo con la aplicación adecuada al descargarlo.</li>
      *   <li>{@code Content-Disposition: attachment} — fuerza la descarga en
      *       lugar de intentar abrirlo en una pestana.</li>
      *   <li>{@code Content-Length} — lo calcula Spring a partir del arreglo de
      *       bytes, y permite al navegador mostrar el progreso.</li>
      * </ul>
      *
-     * @param dias    ventana temporal en dias hacia atras
+     * @param días    ventana temporal en días hacia atrás
      * @param formato {@code pdf} o {@code xlsx}
      * @return el archivo listo para descargar
      */
@@ -108,7 +108,7 @@ public class ReporteControlador {
      * Elimina datos de prueba de la base de datos.
      *
      * @param horas antiguedad en horas de lo que se va a borrar
-     * @return numero de tickets eliminados
+     * @return número de tickets eliminados
      */
     @PostMapping("/limpiar")
     public ResponseEntity<RespuestaApi<Long>> limpiar(@RequestParam(defaultValue = "24") int horas) {
@@ -120,11 +120,11 @@ public class ReporteControlador {
     }
 
     /**
-     * Constante de compatibilidad para la documentacion de la API.
+     * Constante de compatibilidad para la documentación de la API.
      *
-     * <p>Se deja escrita la ruta para que quede en el codigo la advertencia de
+     * <p>Se deja escrita la ruta para que quede en el código la advertencia de
      * que <strong>no</strong> existe un {@code /reportes/pdf} ni un
-     * {@code /reportes/xlsx}: el formato es un parametro, no un segmento de
+     * {@code /reportes/xlsx}: el formato es un parámetro, no un segmento de
      * ruta.</p>
      */
     public static final String RUTA_CORRECTA = "/api/v1/reportes/tickets?dias=30&formato=pdf|xlsx";

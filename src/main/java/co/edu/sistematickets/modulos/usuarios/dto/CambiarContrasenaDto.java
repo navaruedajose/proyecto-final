@@ -5,30 +5,30 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
- * Cambio de contrasena por parte del propio usuario.
+ * Cambio de contraseña por parte del propio usuario.
  *
- * <p>Exige la contrasena actual ademas de la nueva. No es una formalidad: sin
- * ese requisito, cualquiera que dejara la sesion abierta en un equipo publico
- * podria cambiar la contrasena y quedarse con la cuenta. Pedirla obliga a
+ * <p>Exige la contraseña actual además de la nueva. No es una formalidad: sin
+ * ese requisito, cualquiera que dejara la sesión abierta en un equipo público
+ * podría cambiar la contraseña y quedarse con la cuenta. Pedirla obliga a
  * demostrar que quien cambia conoce la credencial vigente.</p>
  *
- * <p>Ademas del cambio, la operacion <strong>revoca todas las sesiones</strong>
- * del usuario. Si no se hiciera, quien tuviera una sesion abierta seguiria
- * dentro con el token antiguo y el cambio no serviria de nada.</p>
+ * <p>Además del cambio, la operación <strong>revoca todas las sesiones</strong>
+ * del usuario. Si no se hiciera, quien tuviera una sesión abierta seguiría
+ * dentro con el token antiguo y el cambio no serviría de nada.</p>
  *
- * @param contrasenaActual contrasena vigente, para autorizar el cambio
- * @param contrasenaNueva  contrasena nueva, con las mismas reglas que el registro
+ * @param contrasenaActual contraseña vigente, para autorizar el cambio
+ * @param contrasenaNueva  contraseña nueva, con las mismas reglas que el registro
  */
 public record CambiarContrasenaDto(
 
-        @NotBlank(message = "La contrasena actual es obligatoria.")
+        @NotBlank(message = "La contraseña actual es obligatoria.")
         String contrasenaActual,
 
-        @NotBlank(message = "La contrasena nueva es obligatoria.")
-        @Size(min = 8, max = 72, message = "La contrasena debe tener entre 8 y 72 caracteres.")
-        @Pattern(regexp = ".*[A-Z].*", message = "La contrasena debe incluir al menos una letra mayuscula.")
-        @Pattern(regexp = ".*[a-z].*", message = "La contrasena debe incluir al menos una letra minuscula.")
-        @Pattern(regexp = ".*[0-9].*", message = "La contrasena debe incluir al menos un numero.")
+        @NotBlank(message = "La contraseña nueva es obligatoria.")
+        @Size(min = 8, max = 72, message = "La contraseña debe tener entre 8 y 72 caracteres.")
+        @Pattern(regexp = ".*[A-Z].*", message = "La contraseña debe incluir al menos una letra mayúscula.")
+        @Pattern(regexp = ".*[a-z].*", message = "La contraseña debe incluir al menos una letra minúscula.")
+        @Pattern(regexp = ".*[0-9].*", message = "La contraseña debe incluir al menos un número.")
         String contrasenaNueva
 ) {
 }

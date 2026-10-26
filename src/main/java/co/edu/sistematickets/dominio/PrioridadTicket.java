@@ -4,7 +4,7 @@ package co.edu.sistematickets.dominio;
  * Nivel de urgencia de un ticket.
  *
  * <p>Espeja el tipo {@code prioridad_ticket} de PostgreSQL. La prioridad no
- * altera el SLA por si sola: lo que manda es la categoria. Sirve para ordenar
+ * altera el SLA por si sola: lo que manda es la categoría. Sirve para ordenar
  * la cola de trabajo y para que los informes muestren donde se concentra lo
  * urgente.</p>
  */
@@ -16,13 +16,13 @@ public enum PrioridadTicket {
     CRITICA;
 
     /**
-     * Peso numerico de la prioridad, util para ordenar colecciones en memoria.
+     * Peso numérico de la prioridad, útil para ordenar colecciones en memoria.
      *
      * <p>El orden natural del {@code enum} ya va de menor a mayor, pero exponer
-     * el peso evita depender de {@code ordinal()} en el codigo de negocio
+     * el peso evita depender de {@code ordinal()} en el código de negocio
      * (que se rompe en silencio si alguien reordena las constantes).</p>
      *
-     * @return valor entre 1 (BAJA) y 4 (CRITICA)
+     * @return valor entre 1 (BAJA) y 4 (CRÍTICA)
      */
     public int peso() {
         return ordinal() + 1;

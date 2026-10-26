@@ -14,15 +14,15 @@ import java.time.LocalDate;
  *
  * <ol>
  *   <li><strong>Los reportes se generan en el servidor</strong>, no en el
- *       cliente. Dos razones: el cliente no tendria que descargarse todos los
+ *       cliente. Dos razones: el cliente no tendría que descargarse todos los
  *       datos para montar el archivo, y el formato queda garantizado sea cual
  *       sea el navegador. Generar el Excel en el navegador produce archivos
- *       distintos segun la version de la libreria, y el profesor recibiria uno
+ *       distintos según la versión de la libreria, y el profesor recibiría uno
  *       distinto cada vez.</li>
- *   <li><strong>El rango de fechas tiene limite</strong>. Un reporte de cinco
- *       anos sobre una tabla grande puede tardar demasiado y bloquear una
- *       conexion de base de datos. Conviene acotarlo por defecto (por ejemplo,
- *       los ultimos 30 dias) y como maximo un intervalo razonable.</li>
+ *   <li><strong>El rango de fechas tiene límite</strong>. Un reporte de cinco
+ *       años sobre una tabla grande puede tardar demasiado y bloquear una
+ *       conexión de base de datos. Conviene acotarlo por defecto (por ejemplo,
+ *       los ultimos 30 días) y como máximo un intervalo razonable.</li>
  * </ol>
  *
  * <p>Solo los administradores pueden exportar: los informes agregados revelan
@@ -58,7 +58,7 @@ public class ReporteServicio {
      */
     public byte[] exportar(LocalDate desde, LocalDate hasta, FormatoReporte formato, RolUsuario rol) {
         throw new UnsupportedOperationException(
-                "La exportacion se implementara al conectar la base de datos. "
+                "La exportación se implementara al conectar la base de datos. "
                         + "Formato solicitado: " + formato);
     }
 
@@ -67,12 +67,12 @@ public class ReporteServicio {
      *
      * <p>Es utilidad de mantenimiento, no funcionalidad de negocio. Existe
      * porque las pruebas de carga crean miles de tickets: reiniciar el volumen
-     * de Docker para limpiarlos es desproporcionado, y este metodo permite
-     * borrar solo lo reciente sin tocar los datos de demostracion.</p>
+     * de Docker para limpiarlos es desproporcionado, y este método permite
+     * borrar solo lo reciente sin tocar los datos de demostración.</p>
      *
      * @param horasAntiguedad borra los tickets creados en las ultimas horas
      * @param rol             rol de quien solicita
-     * @return numero de tickets eliminados
+     * @return número de tickets eliminados
      */
     public long limpiarDatosDePrueba(int horasAntiguedad, RolUsuario rol) {
         throw new UnsupportedOperationException(

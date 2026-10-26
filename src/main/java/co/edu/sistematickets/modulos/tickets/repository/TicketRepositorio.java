@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Acceso a datos de tickets.
  *
- * <p><strong>Estado actual: solo la interfaz.</strong> No hay implementacion
+ * <p><strong>Estado actual: solo la interfaz.</strong> No hay implementación
  * porque el alcance de esta entrega es la estructura. Cuando se implemente la
  * persistencia, lo normal es:</p>
  *
@@ -18,12 +18,12 @@ import java.util.UUID;
  *   public interface TicketRepository extends JpaRepository&lt;TicketEntidad, UUID&gt; { ... }
  * </pre>
  *
- * <p>Y Spring genera la implementacion en tiempo de arranque. Las consultas
+ * <p>Y Spring genera la implementación en tiempo de arranque. Las consultas
  * con filtros dinamicos se resuelven con Specification, Criteria API o una
  * consulta JPQL, porque combinar ocho filtros opcionales con el nombre
- * derivado del metodo ({@code findByEstadoAndPrioridadAnd...}) es inviable.</p>
+ * derivado del método ({@code findByEstadoAndPrioridadAnd...}) es inviable.</p>
  *
- * <p><strong>Por que los metodos devuelven DTOs y no entidades:</strong> la
+ * <p><strong>Por que los métodos devuelven DTOs y no entidades:</strong> la
  * frontera de la persistencia es el mejor lugar para proyectar. Si el
  * repositorio devuelve ya el DTO, el servicio no puede filtrar por accidente
  * un campo que no debe salir, y la consulta puede traer solo las columnas
@@ -37,29 +37,29 @@ public interface TicketRepositorio {
      * Busca un ticket por su identificador interno.
      *
      * @param id identificador del ticket
-     * @return el ticket, o {@link Optional#empty()} si no existe o esta borrado
+     * @return el ticket, o {@link Optional#empty()} si no existe o está borrado
      */
     Optional<TicketDto> buscarPorId(UUID id);
 
     /**
      * Busca un ticket por su folio legible.
      *
-     * @param codigo folio con formato {@code TK-AAAA-000000}
-     * @return el ticket, o vacio si no existe
+     * @param código folio con formato {@code TK-AAAA-000000}
+     * @return el ticket, o vacío si no existe
      */
     Optional<TicketDto> buscarPorCodigo(String codigo);
 
     /**
-     * Lista tickets aplicando los filtros y la paginacion indicados.
+     * Lista tickets aplicando los filtros y la paginación indicados.
      *
      * <p>El aislamiento por rol <strong>no</strong> es responsabilidad de este
-     * metodo: el servicio decide que filtros adicionales imponer (por ejemplo,
-     * forzar {@code solicitanteId} al usuario de la sesion) antes de llamar
-     * aqui. Asi el repositorio es agnostico a quien pregunta, y la regla de
+     * método: el servicio decide que filtros adicionales imponer (por ejemplo,
+     * forzar {@code solicitanteId} al usuario de la sesión) antes de llamar
+     * aquí. Así el repositorio es agnóstico a quien pregunta, y la regla de
      * quien puede ver que queda en una sola capa.</p>
      *
-     * @param filtros criterios de busqueda, paginacion y ordenacion
-     * @return pagina de tickets; lista vacia si nada coincide
+     * @param filtros criterios de búsqueda, paginación y ordenación
+     * @return página de tickets; lista vacía si nada coincide
      */
     List<TicketDto> listar(FiltrosTicketDto filtros);
 
@@ -67,16 +67,16 @@ public interface TicketRepositorio {
      * Cuenta el total de tickets que cumplen los filtros.
      *
      * <p>Se separa de {@link #listar} porque contar y traer son dos consultas
-     * distintas: una devuelve una pagina y la otra un unico numero. Mezclarlas
-     * obligaria a traer todas las filas solo para contarlas.</p>
+     * distintas: una devuelve una página y la otra un único número. Mezclarlas
+     * obligaría a traer todas las filas solo para contarlas.</p>
      *
-     * @param filtros criterios de busqueda (se ignoran pagina y limite)
+     * @param filtros criterios de búsqueda (se ignoran página y límite)
      * @return total de coincidencias
      */
     long contar(FiltrosTicketDto filtros);
 
     /**
-     * Persiste un ticket nuevo y devuelve su representacion de lectura.
+     * Persiste un ticket nuevo y devuelve su representación de lectura.
      *
      * @param ticket datos del ticket a crear
      * @return el ticket creado, ya con folio y fechas generados
@@ -93,7 +93,7 @@ public interface TicketRepositorio {
     TicketDto actualizar(UUID id, TicketDto ticket);
 
     /**
-     * Marca un ticket como eliminado (borrado logico).
+     * Marca un ticket como eliminado (borrado lógico).
      *
      * <p>Nunca se borra fisicamente: escribir la fecha en {@code eliminado_en}
      * conserva la trazabilidad que exige el sistema. Un ticket que desaparece
@@ -106,8 +106,8 @@ public interface TicketRepositorio {
     /**
      * Indica si existe un ticket con ese folio.
      *
-     * @param codigo folio a comprobar
-     * @return {@code true} si ya esta en uso
+     * @param código folio a comprobar
+     * @return {@code true} si ya está en uso
      */
     boolean existePorCodigo(String codigo);
 }

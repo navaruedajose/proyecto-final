@@ -8,17 +8,17 @@ import java.util.UUID;
 /**
  * Contrato de un proveedor de notificaciones.
  *
- * <p>Esta interfaz es el ejemplo mas claro de inversion de dependencias del
- * proyecto, y merece la pena poder explicarlo en la sustentacion. El servicio
+ * <p>Esta interfaz es el ejemplo más claro de inversión de dependencias del
+ * proyecto, y merece la pena poder explicarlo en la sustentación. El servicio
  * de tickets no sabe si las notificaciones salen por correo, por SMS o por
- * consola: solo conoce esta interfaz. Anadir un canal nuevo (por ejemplo
- * mensajeria instantanea) consiste en escribir una implementacion mas, sin
+ * consola: solo conoce esta interfaz. Añadir un canal nuevo (por ejemplo
+ * mensajería instantanea) consiste en escribir una implementación más, sin
  * tocar el servicio de tickets.</p>
  *
- * <p>Hay una segunda consecuencia practica, tan valiosa como la primera: en
- * desarrollo y en las pruebas se inyecta una implementacion que
- * <strong>simula</strong> el envio. Asi las pruebas no gastan credito real ni
- * dependen de que haya conexion, y el resultado es reproducible.</p>
+ * <p>Hay una segunda consecuencia práctica, tan valiosa como la primera: en
+ * desarrollo y en las pruebas se inyecta una implementación que
+ * <strong>simula</strong> el envío. Así las pruebas no gastan credito real ni
+ * dependen de que haya conexión, y el resultado es reproducible.</p>
  */
 public interface ProveedorNotificacion {
 
@@ -28,26 +28,26 @@ public interface ProveedorNotificacion {
     CanalNotificacion canal();
 
     /**
-     * Entrega una notificacion.
+     * Entrega una notificación.
      *
-     * <p>Devuelve un resultado en lugar de lanzar una excepcion cuando el
-     * proveedor rechaza el envio. La razon es que un fallo de entrega es un
-     * resultado esperado, no un error de programacion: se registra en
-     * {@code error_detalle} y se reintenta mas tarde. Lanzar una excepcion
-     * obligaria a envolver cada llamada en un try y a distinguir entre «no se
+     * <p>Devuelve un resultado en lugar de lanzar una excepción cuando el
+     * proveedor rechaza el envío. La razón es que un fallo de entrega es un
+     * resultado esperado, no un error de programación: se registra en
+     * {@code error_detalle} y se reintenta más tarde. Lanzar una excepción
+     * obligaría a envolver cada llamada en un try y a distinguir entre «no se
      * pudo enviar» y «algo se rompio».</p>
      *
-     * @param notificacion notificacion a entregar
-     * @return resultado del intento de envio
+     * @param notificación notificación a entregar
+     * @return resultado del intento de envío
      */
     ResultadoEnvio enviar(NotificacionDto notificacion);
 
     /**
      * Resultado de un intento de entrega.
      *
-     * @param exito        si el proveedor acepto el mensaje
+     * @param éxito        si el proveedor acepto el mensaje
      * @param detalleError motivo del rechazo, si lo hubo
-     * @param referenciaExterna identificador que devuelve el proveedor, util para soporte
+     * @param referenciaExterna identificador que devuelve el proveedor, útil para soporte
      */
     record ResultadoEnvio(boolean exito, String detalleError, String referenciaExterna) {
 
@@ -55,7 +55,7 @@ public interface ProveedorNotificacion {
          * Construye un resultado exitoso.
          *
          * @param referenciaExterna identificador del proveedor
-         * @return resultado con {@code exito = true}
+         * @return resultado con {@code éxito = true}
          */
         public static ResultadoEnvio ok(String referenciaExterna) {
             return new ResultadoEnvio(true, null, referenciaExterna);
@@ -65,7 +65,7 @@ public interface ProveedorNotificacion {
          * Construye un resultado fallido.
          *
          * @param detalleError motivo del fallo
-         * @return resultado con {@code exito = false}
+         * @return resultado con {@code éxito = false}
          */
         public static ResultadoEnvio fallo(String detalleError) {
             return new ResultadoEnvio(false, detalleError, null);

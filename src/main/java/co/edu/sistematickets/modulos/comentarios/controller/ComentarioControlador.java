@@ -22,9 +22,9 @@ import java.util.UUID;
  * Endpoints REST de comentarios.
  *
  * <p>Las rutas cuelgan de {@code /tickets/{ticketId}/comentarios} y no de
- * {@code /comentarios}. Es una decision de diseno de la API: refleja la
- * relacion real entre los recursos. Un comentario no existe sin su ticket, y
- * la ruta lo deja claro; ademas hace imposible pedir un comentario sin decir
+ * {@code /comentarios}. Es una decisión de diseño de la API: refleja la
+ * relación real entre los recursos. Un comentario no existe sin su ticket, y
+ * la ruta lo deja claro; además hace imposible pedir un comentario sin decir
  * de que ticket es.</p>
  */
 @RestController

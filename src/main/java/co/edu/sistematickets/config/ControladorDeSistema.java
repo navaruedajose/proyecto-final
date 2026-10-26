@@ -12,20 +12,20 @@ import java.util.Map;
 /**
  * Endpoints de salud y metadatos del servicio.
  *
- * <p>No son funcionalidad de negocio, pero son imprescindibles en produccion y
+ * <p>No son funcionalidad de negocio, pero son imprescindibles en producción y
  * conviene saber explicar para que sirven:</p>
  *
  * <ul>
  *   <li>{@code /salud} — lo consulta el orquestador (Docker, Kubernetes) para
- *       saber si el contenedor esta vivo. Si deja de responder, se reinicia.
- *       Tambien lo usa el script de verificacion del proyecto.</li>
- *   <li>{@code /vivo} — variante minima, sin comprobar dependencias. Sirve para
- *       distinguir «el proceso esta vivo» de «el servicio puede atender». Un
- *       proceso vivo con la base de datos caida debe responder en {@code /vivo}
+ *       saber si el contenedor está vivo. Si deja de responder, se reinicia.
+ *       También lo usa el script de verificación del proyecto.</li>
+ *   <li>{@code /vivo} — variante mínima, sin comprobar dependencias. Sirve para
+ *       distinguir «el proceso está vivo» de «el servicio puede atender». Un
+ *       proceso vivo con la base de datos caída debe responder en {@code /vivo}
  *       pero fallar en {@code /salud}, y esa diferencia es la que permite
  *       diagnosticar sin adivinar.</li>
- *   <li>{@code /} — version y documentacion de la API, para que quien reciba
- *       una URL del servicio sepa que esta mirando.</li>
+ *   <li>{@code /} — versión y documentación de la API, para que quien reciba
+ *       una URL del servicio sepa que está mirando.</li>
  * </ul>
  */
 @RestController
@@ -60,9 +60,9 @@ public class ControladorDeSistema {
     }
 
     /**
-     * Describe el servicio en la raiz de la API.
+     * Describe el servicio en la raíz de la API.
      *
-     * @return nombre, version y punto de entrada de la documentacion
+     * @return nombre, versión y punto de entrada de la documentación
      */
     @GetMapping
     public ResponseEntity<RespuestaApi<Map<String, String>>> raiz() {

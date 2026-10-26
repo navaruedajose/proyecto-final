@@ -12,18 +12,18 @@ import java.util.UUID;
 /**
  * Reglas de negocio de comentarios.
  *
- * <p>El punto delicado de este modulo es el filtrado de las notas internas. La
- * regla es sencilla de enunciar y facil de romper sin darse cuenta:</p>
+ * <p>El punto delicado de este módulo es el filtrado de las notas internas. La
+ * regla es sencilla de enunciar y fácil de romper sin darse cuenta:</p>
  *
  * <p><strong>Un solicitante nunca ve los comentarios marcados como internos.</strong>
  * El filtro se aplica al consultar, no al devolver: se pide al repositorio que
- * los excluya en lugar de traerlos todos y descartarlos despues. Filtrar en
+ * los excluya en lugar de traerlos todos y descartarlos después. Filtrar en
  * memoria funciona, pero deja los datos sensibles en el proceso un instante
- * de mas y, sobre todo, depende de que nadie olvide el descarte.</p>
+ * de más y, sobre todo, depende de que nadie olvide el descarte.</p>
  *
  * <p>Regla complementaria: solo el personal de soporte puede crear notas
  * internas. Si un solicitante pudiera marcarlas, el campo perderia su
- * significado y acabaria ocultando informacion al propio agente.</p>
+ * significado y acabaría ocultando información al propio agente.</p>
  */
 public class ComentarioServicio {
 
@@ -65,7 +65,7 @@ public class ComentarioServicio {
         }
 
         throw new UnsupportedOperationException(
-                "La publicacion se completara al conectar la persistencia. "
+                "La publicación se completara al conectar la persistencia. "
                         + "Nota interna solicitada: " + datos.esInterno());
     }
 
@@ -73,20 +73,20 @@ public class ComentarioServicio {
      * Elimina un comentario.
      *
      * <p>Solo el autor o un administrador. Que un agente pudiera borrar los
-     * comentarios de otro borraria evidencia de la conversacion.</p>
+     * comentarios de otro borraria evidencia de la conversación.</p>
      *
      * <p><strong>Por que se comprueba la pertenencia antes que el permiso.</strong>
      * La ruta es anidada ({@code /tickets/{ticketId}/comentarios/{comentarioId}}),
-     * asi que el cliente afirma dos cosas a la vez: que el comentario existe y
+     * así que el cliente afirma dos cosas a la vez: que el comentario existe y
      * que pertenece a ese ticket. Si solo se comprobara el permiso, un usuario
-     * legitimado en el ticket A podria borrar un comentario del ticket B
+     * legitimado en el ticket A podría borrar un comentario del ticket B
      * enviando el identificador correcto bajo la ruta del ticket A. La
-     * comprobacion de pertenencia cierra ese hueco.</p>
+     * comprobación de pertenencia cierra ese hueco.</p>
      *
      * <p>El orden importa: primero la existencia, luego la pertenencia y por
-     * ultimo el permiso. Asi una ruta con un {@code ticketId} ajeno devuelve
+     * último el permiso. Así una ruta con un {@code ticketId} ajeno devuelve
      * 404 sin revelar si el comentario existe en otro ticket, y solo quien
-     * tiene derecho a ver el comentario llega a la comprobacion de permisos.</p>
+     * tiene derecho a ver el comentario llega a la comprobación de permisos.</p>
      *
      * @param ticketId     ticket al que pertenece
      * @param comentarioId comentario a borrar
@@ -100,7 +100,7 @@ public class ComentarioServicio {
                 .orElseThrow(() -> new NoEncontradoExcepcion("Comentario", comentarioId));
 
         // La ruta promete que el comentario es de este ticket. Si no lo es, la
-        // peticion apunta a un recurso que no existe: 404, sin filtrar que el
+        // petición apunta a un recurso que no existe: 404, sin filtrar que el
         // comentario si exista en otro ticket.
         if (ticketId == null || !ticketId.equals(comentario.ticketId())) {
             throw new NoEncontradoExcepcion("Comentario", comentarioId);

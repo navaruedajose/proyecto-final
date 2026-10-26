@@ -21,13 +21,13 @@ import java.util.UUID;
  * <ol>
  *   <li><strong>Un usuario solo se edita a si mismo</strong>, salvo el
  *       administrador. Y un no-administrador no puede tocar su propio rol ni
- *       su estado de activacion: si pudiera, cualquiera se ascenderia
+ *       su estado de activación: si pudiera, cualquiera se ascenderia
  *       mandando {@code "rol": "ADMINISTRADOR"}.</li>
  *   <li><strong>Un administrador no puede desactivarse a si mismo.</strong> Es
- *       la salvaguarda clasica: evita que el sistema se quede sin ningun
- *       administrador activo y nadie pueda volver a entrar. Es la razon de que
- *       el proyecto incluya ademas un script de rescate.</li>
- *   <li><strong>Cambiar la contrasena revoca todas las sesiones.</strong> Con
+ *       la salvaguarda clásica: evita que el sistema se quede sin ningún
+ *       administrador activo y nadie pueda volver a entrar. Es la razón de que
+ *       el proyecto incluya además un script de rescate.</li>
+ *   <li><strong>Cambiar la contraseña revoca todas las sesiones.</strong> Con
  *       el token antiguo ya no se entra.</li>
  * </ol>
  */
@@ -43,14 +43,14 @@ public class UsuarioServicio {
     }
 
     /**
-     * Lista usuarios con filtros y paginacion.
+     * Lista usuarios con filtros y paginación.
      *
      * @param rol      filtro por rol; puede ser {@code null}
      * @param activo   filtro por estado; puede ser {@code null}
-     * @param busqueda texto libre; puede ser {@code null}
-     * @param pagina   numero de pagina
-     * @param limite   tamano de pagina
-     * @return pagina de usuarios y metadatos
+     * @param búsqueda texto libre; puede ser {@code null}
+     * @param página   número de página
+     * @param límite   tamaño de página
+     * @return página de usuarios y metadatos
      */
     public RespuestaApi<List<UsuarioDto>> listar(RolUsuario rol, Boolean activo, String busqueda,
                                                  int pagina, int limite) {
@@ -85,12 +85,12 @@ public class UsuarioServicio {
      *
      * <p>Comprueba dos cosas antes de persistir: que quien edita tenga derecho
      * a hacerlo, y que si no es administrador no este intentando cambiar el
-     * rol o el estado de activacion. La segunda comprobacion es la importante;
-     * sin ella, la primera no serviria de mucho.</p>
+     * rol o el estado de activación. La segunda comprobación es la importante;
+     * sin ella, la primera no serviría de mucho.</p>
      *
      * @param id          usuario a editar
      * @param cambios     campos a modificar
-     * @param usuarioId   usuario que realiza la edicion
+     * @param usuarioId   usuario que realiza la edición
      * @param rolEditor   rol de quien edita
      * @return el usuario actualizado
      */
@@ -109,19 +109,19 @@ public class UsuarioServicio {
         }
 
         throw new UnsupportedOperationException(
-                "La actualizacion se completara al conectar la persistencia.");
+                "La actualización se completara al conectar la persistencia.");
     }
 
     /**
-     * Desactiva un usuario (borrado logico).
+     * Desactiva un usuario (borrado lógico).
      *
      * <p>Dos salvaguardas antes de desactivar: solo un administrador puede
      * hacerlo, y no puede desactivarse a si mismo. La segunda evita que el
-     * sistema se quede sin ningun administrador activo, que seria un callejon
+     * sistema se quede sin ningún administrador activo, que sería un callejon
      * sin salida.</p>
      *
      * @param id        usuario a desactivar
-     * @param usuarioId quien realiza la operacion
+     * @param usuarioId quien realiza la operación
      * @param rolEditor rol de quien la realiza
      */
     public void desactivar(UUID id, UUID usuarioId, RolUsuario rolEditor) {
@@ -138,19 +138,19 @@ public class UsuarioServicio {
     }
 
     /**
-     * Cambia la contrasena del propio usuario.
+     * Cambia la contraseña del propio usuario.
      *
-     * <p>Exige la contrasena actual y, al terminar, revoca todas las sesiones.
-     * El orden importa: primero se comprueba la contrasena actual, y solo si
+     * <p>Exige la contraseña actual y, al terminar, revoca todas las sesiones.
+     * El orden importa: primero se comprueba la contraseña actual, y solo si
      * es correcta se cambia y se revoca.</p>
      *
      * @param usuarioId identificador del usuario
-     * @param datos     contrasena actual y nueva
+     * @param datos     contraseña actual y nueva
      */
     public void cambiarContrasena(UUID usuarioId, CambiarContrasenaDto datos) {
         obtener(usuarioId);
         throw new UnsupportedOperationException(
-                "El cambio de contrasena se implementara al conectar la persistencia. "
+                "El cambio de contraseña se implementara al conectar la persistencia. "
                         + "Recordar: verificar la actual y revocar todas las sesiones.");
     }
 }
