@@ -154,19 +154,7 @@ compilación fue correcta.** Es el comando usado para verificar este proyecto.
 
 ---
 
-## 7. Lanzadores incluidos
-
-En la raíz hay tres scripts para no escribir las órdenes largas:
-
-| Script | Que hace |
-|---|---|
-| `ejecutar.bat` | Arranca la aplicación con `mvn spring-boot:run`. |
-| `compilar.bat` | Ejecuta `mvn clean package` y deja el jar en `target\`. |
-| `verificar.bat` | Compila y consulta `/vivo` y `/salud` con `curl`. |
-
----
-
-## 8. Problemas frecuentes
+## 7. Problemas frecuentes
 
 | Sintoma | Causa y solución |
 |---|---|
@@ -179,7 +167,7 @@ En la raíz hay tres scripts para no escribir las órdenes largas:
 
 ---
 
-## 9. Sobre la persistencia (aún no conectada)
+## 8. Sobre la persistencia (aún no conectada)
 
 Este proyecto se entrego como **estructura**: DTOs, servicios y controladores
 completos, pero sin acceso a datos. Los repositorios son **interfaces sin
@@ -209,7 +197,7 @@ de PostgreSQL.
 
 ---
 
-## 10. Verificación realizada
+## 9. Verificación realizada
 
 Este proyecto se compilo con un JDK 23 y **Maven 3.9**, con el resultado
 `BUILD SUCCESS`. Nota: el `pom.xml` declara `java.version` **17** mientras que
@@ -224,7 +212,7 @@ mvn -q -B clean compile
 
 ---
 
-## 11. Scripts de verificación oficiales
+## 10. Scripts de verificación oficiales
 
 El proyecto original incluye sus propios verificadores (`verificar-api.js`,
 `verificar-cabeceras.bat`, `verificar-rendimiento.bat`). Este proyecto Spring

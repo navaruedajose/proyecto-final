@@ -75,14 +75,6 @@ curl http://localhost:4000/vivo
 curl http://localhost:4000/salud
 ```
 
-También hay lanzadores para no escribir las órdenes largas:
-
-| Script | Que hace |
-|---|---|
-| `ejecutar.bat` | Arranca la aplicación. |
-| `compilar.bat` | Empaqueta el fat jar en `target\`. |
-| `verificar.bat` | Compila y consulta los endpoints de diagnóstico. |
-
 **Guía detallada, problemas frecuentes y notas sobre el JDK:
 [`docs/COMO-EJECUTAR.md`](docs/COMO-EJECUTAR.md).**
 
@@ -583,7 +575,7 @@ no un error.
 ## Qué falta para que sea funcional
 
 Los cuatro pasos, en orden, están en
-[`docs/COMO-EJECUTAR.md`](docs/COMO-EJECUTAR.md), sección 9. En resumen:
+[`docs/COMO-EJECUTAR.md`](docs/COMO-EJECUTAR.md), sección 8. En resumen:
 
 1. **`pom.xml`** — descomentar el bloque `3. PENDIENTES PARA LA VERSIÓN
    FUNCIONAL` (`data-jpa`, `security`, `postgresql`, `jjwt-api`).
@@ -620,7 +612,7 @@ El esquema SQL ya existe en el proyecto original
 la compilación se hizo con el JDK **23** disponible en el equipo. Eso valida
 que el código sea compatible hacia adelante, pero **no ejercita el objetivo 17
 exacto**. Para reproducir la comprobación con la versión objetivo hay que usar
-un JDK 17; el comando está en `docs/COMO-EJECUTAR.md`, sección 10.
+un JDK 17; el comando está en `docs/COMO-EJECUTAR.md`, sección 9.
 
 **Nota sobre el entorno.** En la máquina de desarrollo hay **Java 8**
 instalado (`1.8.0_431`), que no sirve para Spring Boot 3, y `mvn` / `gradle` no
