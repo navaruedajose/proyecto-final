@@ -4,13 +4,7 @@ Version **Spring Boot (Java 17)** del backend del Sistema de Tickets (helpdesk).
 Es el mismo dominio del proyecto original en Node.js + Express, reescrito con
 la arquitectura por capas que se espera de una aplicacion Spring.
 
-> **Estado de la entrega:** este repositorio contiene la **estructura
-> completa** — DTOs con validacion, servicios con las reglas de negocio y
-> controladores REST — pero **sin acceso a datos**. Los repositorios son
-> interfaces sin implementacion. La aplicacion arranca y responde en los
-> endpoints de diagnostico; las rutas de negocio fallan de forma explicita con
-> `UnsupportedOperationException` hasta que se conecte la persistencia. Ver
-> [`docs/COMO-EJECUTAR.md`](docs/COMO-EJECUTAR.md), seccion 9.
+
 
 ---
 
