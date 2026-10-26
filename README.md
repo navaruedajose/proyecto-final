@@ -207,6 +207,7 @@ la API.
 |---|---|---|
 | `POST` | `/registro` | Crea una cuenta de solicitante. |
 | `POST` | `/iniciar-sesion` | Devuelve el par de tokens. |
+| `POST` | `/usuarios` | Alta de agente o administrador (solo `ADMINISTRADOR`). |
 | `POST` | `/refrescar` | Cambia un token de refresco por uno de acceso nuevo. |
 | `POST` | `/cerrar-sesion` | Invalida el token de refresco actual. |
 | `POST` | `/cerrar-todas-las-sesiones` | Invalida todos los del usuario. |
@@ -240,6 +241,7 @@ de los tickets que atendio.
 | Metodo | Ruta | Que hace |
 |---|---|---|
 | `GET` | `/` | Lista. |
+| `GET` | `/{id}` | Detalle. |
 | `POST` | `/` | Crea. |
 | `PATCH` | `/{id}` | Actualiza. |
 | `DELETE` | `/{id}` | Elimina, **solo si no tiene tickets**. |
@@ -296,6 +298,7 @@ que ticket es.
 |---|---|---|
 | `GET` | `/dashboard` | Panel con los indicadores principales. |
 | `GET` | `/tickets` | Genera el reporte. `?dias=30&formato=pdf\|xlsx` |
+| `POST` | `/limpiar` | Borra los reportes temporales antiguos. |
 
 **La ruta correcta es `/api/v1/reportes/tickets?formato=pdf`.** No existen
 `/reportes/pdf` ni `/reportes/xlsx`: el formato es un parametro, no un
@@ -305,10 +308,9 @@ recurso. Un reporte no es una entidad distinta por estar en PDF.
 
 | Metodo | Ruta | Que hace |
 |---|---|---|
-| `GET` | `/` | Lista, filtrada por rol. |
+| `GET` | `/ticket/{ticketId}` | Historial de envios de un ticket. |
 | `GET` | `/resumen` | Contadores por estado y canal. |
 | `POST` | `/reintentar` | Reencola las fallidas. |
-| `POST` | `/limpiar` | Borra las enviadas antiguas. |
 
 ---
 
@@ -620,7 +622,7 @@ El esquema SQL ya existe en el proyecto original
 | Archivos Java | 62 |
 | Lineas de codigo | ~4.980 |
 | Modulos funcionales | 8 |
-| Endpoints REST | 47 |
+| Endpoints REST | 43 |
 
 **Nota sobre el JDK.** El `pom.xml` declara `java.version` **17** mientras que
 la compilacion se hizo con el JDK **23** disponible en el equipo. Eso valida
